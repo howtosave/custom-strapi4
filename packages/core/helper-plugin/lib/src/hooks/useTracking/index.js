@@ -1,4 +1,5 @@
-import { useContext, useRef } from 'react';
+// [PTK] remove useless code
+/* import { useContext, useRef } from 'react';
 import axios from 'axios';
 import TrackingContext from '../../contexts/TrackingContext';
 
@@ -22,5 +23,5 @@ const useTracking = () => {
 
   return { trackUsage: trackRef.current };
 };
-
-export default useTracking;
+export default useTracking; */
+export default () => {};

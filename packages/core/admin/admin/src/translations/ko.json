@@ -74,7 +74,7 @@
 	"Provider": "프로바이더(provider)",
 	"ResetPasswordToken": "비밀번호 토큰 재설정",
 	"Role": "역할",
-	"Roles & Permissions": "역할(Roles) & 권한(Permissions)",
+	"Roles & Permissions": "역할 & 권한",
 	"Roles.ListPage.notification.delete-all-not-allowed": "Some roles could not be deleted since they are associated with users",
 	"Roles.ListPage.notification.delete-not-allowed": "A role cannot be deleted if associated with users",
 	"Roles.RoleRow.select-all": "Select {name} for bulk actions",

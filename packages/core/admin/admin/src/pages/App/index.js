@@ -19,7 +19,8 @@ import PrivateRoute from '../../components/PrivateRoute';
 import { createRoute, makeUniqueRoutes } from '../../utils';
 import AuthPage from '../AuthPage';
 import NotFoundPage from '../NotFoundPage';
-import { getUID } from './utils';
+// [PTK] remove useless code
+/* import { getUID } from './utils'; */
 import routes from './utils/routes';
 
 const AuthenticatedApp = lazy(() =>
@@ -68,7 +69,8 @@ function App() {
           data: { hasAdmin, uuid },
         } = await request('/admin/init', { method: 'GET' });
 
-        if (uuid) {
+        // [PTK] remove useless code
+        /* if (uuid) {
           try {
             const deviceId = await getUID();
 
@@ -86,7 +88,7 @@ function App() {
           } catch (e) {
             // Silent.
           }
-        }
+        } */
 
         setState({ isLoading: false, hasAdmin, uuid });
       } catch (err) {
