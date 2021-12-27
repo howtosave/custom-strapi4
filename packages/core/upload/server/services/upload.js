@@ -33,8 +33,8 @@ const generateFileName = name => {
 
   return `${baseName}_${randomSuffix()}`;
 };
-
-const sendMediaMetrics = data => {
+//[PTK] remove useless code
+/*const sendMediaMetrics = data => {
   if (_.has(data, 'caption') && !_.isEmpty(data.caption)) {
     strapi.telemetry.send('didSaveMediaWithCaption');
   }
@@ -42,7 +42,7 @@ const sendMediaMetrics = data => {
   if (_.has(data, 'alternativeText') && !_.isEmpty(data.alternativeText)) {
     strapi.telemetry.send('didSaveMediaWithAlternativeText');
   }
-};
+};*/
 
 module.exports = ({ strapi }) => ({
   async emitEvent(event, data) {
@@ -269,7 +269,8 @@ module.exports = ({ strapi }) => ({
     if (user) {
       fileValues[UPDATED_BY_ATTRIBUTE] = user.id;
     }
-    sendMediaMetrics(fileValues);
+    //[PTK] remove useless code
+    /*sendMediaMetrics(fileValues);*/
 
     const res = await strapi.entityService.update('plugin::upload.file', id, { data: fileValues });
 
@@ -284,7 +285,8 @@ module.exports = ({ strapi }) => ({
       fileValues[UPDATED_BY_ATTRIBUTE] = user.id;
       fileValues[CREATED_BY_ATTRIBUTE] = user.id;
     }
-    sendMediaMetrics(fileValues);
+    //[PTK] remove useless code
+    /*sendMediaMetrics(fileValues);*/
 
     const res = await strapi.query('plugin::upload.file').create({ data: fileValues });
 

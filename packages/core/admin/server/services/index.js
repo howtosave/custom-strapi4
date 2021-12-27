@@ -6,7 +6,8 @@ module.exports = {
   role: require('./role'),
   permission: require('./permission'),
   passport: require('./passport'),
-  metrics: require('./metrics'),
+  //[PTK] remove useless code
+  /*metrics: require('./metrics'),*/
   'content-type': require('./content-type'),
   constants: require('./constants'),
   condition: require('./condition'),

@@ -3,7 +3,6 @@
 const { getService } = require('./utils');
 
 module.exports = async ({ strapi }) => {
-  const { sendDidInitializeEvent } = getService('metrics');
   const { decorator } = getService('entity-service-decorator');
   const { initDefaultLocale } = getService('locales');
   const { sectionsBuilder, actions, engine } = getService('permissions');
@@ -28,7 +27,9 @@ module.exports = async ({ strapi }) => {
   // Hooks & Models
   registerModelsHooks();
 
-  sendDidInitializeEvent();
+  //[PTK] remove useless code
+  /*const { sendDidInitializeEvent } = getService('metrics');
+  sendDidInitializeEvent();*/
 };
 
 const registerModelsHooks = () => {

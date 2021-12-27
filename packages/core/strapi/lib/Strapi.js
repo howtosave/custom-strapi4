@@ -19,9 +19,10 @@ const { createCoreStore, coreStoreModel } = require('./services/core-store');
 const createEntityService = require('./services/entity-service');
 const createCronService = require('./services/cron');
 const entityValidator = require('./services/entity-validator');
-const createTelemetry = require('./services/metrics');
 const createAuth = require('./services/auth');
-const createUpdateNotifier = require('./utils/update-notifier');
+//[PTK] remove useless code
+/*const createTelemetry = require('./services/metrics');
+const createUpdateNotifier = require('./utils/update-notifier');*/
 const createStartupLogger = require('./utils/startup-logger');
 const ee = require('./utils/ee');
 const contentTypesRegistry = require('./core/registries/content-types');
@@ -74,9 +75,10 @@ class Strapi {
     this.startupLogger = createStartupLogger(this);
     this.log = createLogger(this.config.get('logger', {}));
     this.cron = createCronService();
-    this.telemetry = createTelemetry(this);
-
-    createUpdateNotifier(this).notify();
+    //[PTK] remove useless code
+    this.telemetry = { send: () => {} };
+    /*this.telemetry = createTelemetry(this);
+    createUpdateNotifier(this).notify();*/
   }
 
   get config() {
@@ -180,15 +182,16 @@ class Strapi {
       await this.db.destroy();
     }
 
-    this.telemetry.destroy();
+    //[PTK] remove useless code
+    /*this.telemetry.destroy();*/
     this.cron.destroy();
 
     process.removeAllListeners();
 
     delete global.strapi;
   }
-
-  sendStartupTelemetry() {
+  //[PTK] remove useless code
+  /*sendStartupTelemetry() {
     // Get database clients
     const databaseClients = _.map(this.config.get('connections'), _.property('settings.client'));
 
@@ -199,7 +202,7 @@ class Strapi {
       plugins: this.config.installedPlugins,
       providers: this.config.installedProviders,
     });
-  }
+  }*/
 
   async openAdmin({ isInitialized }) {
     const shouldOpenAdmin =
@@ -216,7 +219,8 @@ class Strapi {
 
     this.startupLogger.logStartupMessage({ isInitialized });
 
-    this.sendStartupTelemetry();
+    //[PTK] remove useless code
+    /*this.sendStartupTelemetry();*/
     this.openAdmin({ isInitialized });
   }
 
@@ -329,7 +333,8 @@ class Strapi {
 
     this.registerInternalHooks();
 
-    this.telemetry.register();
+    //[PTK] remove useless code
+    /*this.telemetry.register();*/
 
     await this.runLifecyclesFunctions(LIFECYCLES.REGISTER);
 
@@ -363,7 +368,8 @@ class Strapi {
     const cronTasks = this.config.get('server.cron.tasks', {});
     this.cron.add(cronTasks);
 
-    this.telemetry.bootstrap();
+    //[PTK] remove useless code
+    /*this.telemetry.bootstrap();*/
 
     let oldContentTypes;
     if (await this.db.getSchemaConnection().hasTable(coreStoreModel.collectionName)) {

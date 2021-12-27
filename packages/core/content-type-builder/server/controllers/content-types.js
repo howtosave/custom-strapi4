@@ -64,6 +64,8 @@ module.exports = {
         components: body.components,
       });
 
+      //[PTK] remove useless code
+      /*
       const metricsProperties = {
         kind: contentType.kind,
         hasDraftAndPublish: hasDraftAndPublish(contentType.schema),
@@ -73,7 +75,7 @@ module.exports = {
         await strapi.telemetry.send('didCreateFirstContentType', metricsProperties);
       } else {
         await strapi.telemetry.send('didCreateContentType', metricsProperties);
-      }
+      }*/
 
       setImmediate(() => strapi.reload());
 
