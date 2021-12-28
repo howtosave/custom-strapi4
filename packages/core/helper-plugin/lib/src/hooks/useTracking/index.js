@@ -1,11 +1,13 @@
-// [PTK] remove useless code
-/* import { useContext, useRef } from 'react';
-import axios from 'axios';
-import TrackingContext from '../../contexts/TrackingContext';
+import { /* useContext, */ useRef } from 'react';
+// [PTK] useless code
+/* import axios from 'axios';
+import TrackingContext from '../../contexts/TrackingContext'; */
 
 const useTracking = () => {
   const trackRef = useRef();
-  const uuid = useContext(TrackingContext);
+  // [PTK] useless code
+  trackRef.current = () => {};
+  /* const uuid = useContext(TrackingContext);
 
   trackRef.current = (event, properties) => {
     if (uuid) {
@@ -19,9 +21,8 @@ const useTracking = () => {
         // Silent
       }
     }
-  };
+  }; */
 
   return { trackUsage: trackRef.current };
 };
-export default useTracking; */
-export default () => {};
+export default useTracking;
