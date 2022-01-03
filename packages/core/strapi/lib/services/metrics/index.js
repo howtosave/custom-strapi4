@@ -3,8 +3,9 @@
  * Strapi telemetry package.
  * You can learn more at https://docs.strapi.io/developer-docs/latest/getting-started/usage-information.html
  */
-
-const crypto = require('crypto');
+//[PTK] remove useless code
+module.exports = () => {};
+/*const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { scheduleJob } = require('node-schedule');
@@ -104,3 +105,4 @@ const hashDep = strapi => {
 };
 
 module.exports = createTelemetryInstance;
+*/
