@@ -1,8 +1,7 @@
 'use strict';
 
 const permissions = require('./permissions');
-//[PTK] remove useless code
-/*const metrics = require('./metrics');*/
+// [PK] removed telemetry
 const localizations = require('./localizations');
 const locales = require('./locales');
 const isoLocales = require('./iso-locales');
@@ -12,7 +11,6 @@ const contentTypes = require('./content-types');
 
 module.exports = {
   permissions,
-  //[PTK] remove useless code /*metrics,*/
   localizations,
   locales,
   'iso-locales': isoLocales,

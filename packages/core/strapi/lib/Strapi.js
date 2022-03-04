@@ -20,9 +20,8 @@ const createEntityService = require('./services/entity-service');
 const createCronService = require('./services/cron');
 const entityValidator = require('./services/entity-validator');
 const createAuth = require('./services/auth');
-//[PTK] remove useless code
-/*const createTelemetry = require('./services/metrics');
-const createUpdateNotifier = require('./utils/update-notifier');*/
+// [PK] removed telemetry
+// [PK] removed update-notifier
 const createStartupLogger = require('./utils/startup-logger');
 const ee = require('./utils/ee');
 const contentTypesRegistry = require('./core/registries/content-types');
@@ -75,10 +74,9 @@ class Strapi {
     this.startupLogger = createStartupLogger(this);
     this.log = createLogger(this.config.get('logger', {}));
     this.cron = createCronService();
-    //[PTK] remove useless code
-    this.telemetry = { send: () => {} };
-    /*this.telemetry = createTelemetry(this);
-    createUpdateNotifier(this).notify();*/
+    
+    // [PK] removed telemetry
+    // [PK] removed update-notifier
   }
 
   get config() {
@@ -182,8 +180,8 @@ class Strapi {
       await this.db.destroy();
     }
 
-    //[PTK] remove useless code
-    /*this.telemetry.destroy();*/
+    // [PK] removed telemetry
+
     this.cron.destroy();
 
     process.removeAllListeners();
@@ -191,7 +189,7 @@ class Strapi {
     delete global.strapi;
   }
 
-  //[PTK] removed telemetry
+  //[PK] removed telemetry
 
   async openAdmin({ isInitialized }) {
     const shouldOpenAdmin =
@@ -208,7 +206,7 @@ class Strapi {
 
     this.startupLogger.logStartupMessage({ isInitialized });
 
-    //[PTK] remove useless code
+    //[PK] remove useless code
     /*this.sendStartupTelemetry();*/
     this.openAdmin({ isInitialized });
   }
@@ -322,8 +320,7 @@ class Strapi {
 
     this.registerInternalHooks();
 
-    //[PTK] remove useless code
-    /*this.telemetry.register();*/
+    // [PK] removed telemetry
 
     await this.runLifecyclesFunctions(LIFECYCLES.REGISTER);
 
@@ -357,8 +354,7 @@ class Strapi {
     const cronTasks = this.config.get('server.cron.tasks', {});
     this.cron.add(cronTasks);
 
-    //[PTK] remove useless code
-    /*this.telemetry.bootstrap();*/
+    // [PK] removed telemetry
 
     let oldContentTypes;
     if (await this.db.getSchemaConnection().hasTable(coreStoreModel.collectionName)) {

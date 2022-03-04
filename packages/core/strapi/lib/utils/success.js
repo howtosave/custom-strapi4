@@ -1,3 +1,3 @@
 'use strict';
 
-//[PTK] removed telemetry
+//[PK] removed telemetry

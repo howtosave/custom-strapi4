@@ -104,9 +104,7 @@ module.exports = {
 
     const newConfiguration = await contentTypeService.updateConfiguration(contentType, input);
 
-    //[PTK] remove useless code
-    /*const metricsService = getService('metrics');
-    await metricsService.sendDidConfigureListView(contentType, newConfiguration);*/
+    // [PK] removed telemetry
 
     ctx.body = { data: newConfiguration };
   },

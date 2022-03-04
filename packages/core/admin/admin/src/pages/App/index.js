@@ -19,7 +19,7 @@ import PrivateRoute from '../../components/PrivateRoute';
 import { createRoute, makeUniqueRoutes } from '../../utils';
 import AuthPage from '../AuthPage';
 import NotFoundPage from '../NotFoundPage';
-// [PTK] removed telemetry
+// [PK] removed telemetry
 import UseCasePage from '../UseCasePage';
 import routes from './utils/routes';
 

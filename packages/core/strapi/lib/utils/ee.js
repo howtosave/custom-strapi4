@@ -14,7 +14,7 @@ const noLog = {
   info: noop,
 };
 
-//[PTK] hack EE
+//[PK] hack EE
 const internals = { isEE: true, licenseInfo: { type: "silver" } };
 const features = {
   bronze: [],

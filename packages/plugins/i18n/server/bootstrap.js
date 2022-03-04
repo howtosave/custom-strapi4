@@ -27,9 +27,7 @@ module.exports = async ({ strapi }) => {
   // Hooks & Models
   registerModelsHooks();
 
-  //[PTK] remove useless code
-  /*const { sendDidInitializeEvent } = getService('metrics');
-  sendDidInitializeEvent();*/
+  // [PK] removed telemetry
 };
 
 const registerModelsHooks = () => {

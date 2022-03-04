@@ -16,8 +16,8 @@ const count = params => strapi.query('plugin::i18n.locale').count({ where: param
 
 const create = async locale => {
   const result = await strapi.query('plugin::i18n.locale').create({ data: locale });
-  //[PTK] remove useless code
-  /*getService('metrics').sendDidUpdateI18nLocalesEvent();*/
+  
+  // [PK] removed telemetry
 
   return result;
 };
@@ -25,8 +25,7 @@ const create = async locale => {
 const update = async (params, updates) => {
   const result = await strapi.query('plugin::i18n.locale').update({ where: params, data: updates });
 
-  //[PTK] remove useless code
-  /*getService('metrics').sendDidUpdateI18nLocalesEvent();*/
+  // [PK] removed telemetry  
 
   return result;
 };
@@ -38,8 +37,7 @@ const deleteFn = async ({ id }) => {
     await deleteAllLocalizedEntriesFor({ locale: localeToDelete.code });
     const result = await strapi.query('plugin::i18n.locale').delete({ where: { id } });
 
-    //[PTK] remove useless code
-    /*getService('metrics').sendDidUpdateI18nLocalesEvent();*/
+    // [PK] removed telemetry    
 
     return result;
   }

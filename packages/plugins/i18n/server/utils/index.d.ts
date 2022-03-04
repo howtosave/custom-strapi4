@@ -1,7 +1,7 @@
 import * as locales from '../services/locales';
 import * as permissions from '../services/permissions';
 import * as contentTypes from '../services/content-types';
-//[PTK] remove useless code
+//[PK] remove useless code
 /*import * as metrics from '../services/metrics';*/
 import * as entityServiceDecorator from '../services/entity-service-decorator';
 import * as coreAPI from '../services/core-api';
@@ -10,7 +10,7 @@ import * as localizations from '../services/localizations';
 
 type S = {
   permissions: typeof permissions;
-  //[PTK] remove useless code /*metrics: typeof metrics;*/
+  //[PK] remove useless code /*metrics: typeof metrics;*/
   locales: typeof locales;
   localizations: typeof localizations;
   ['iso-locales']: typeof ISOLocales;

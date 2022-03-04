@@ -349,10 +349,8 @@ const assignPermissions = async (roleId, permissions = []) => {
     const newPermissions = await addPermissions(roleId, permissionsToAdd);
     permissionsToReturn.push(...newPermissions);
   }
-  //[PTK] remove useless code
-  /*if (!isSuperAdmin && (permissionsToAdd.length || permissionsToDelete.length)) {
-    await getService('metrics').sendDidUpdateRolePermissions();
-  }*/
+
+  // [PK] removed telemetry
 
   return permissionsToReturn;
 };

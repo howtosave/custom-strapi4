@@ -40,8 +40,8 @@ const create = async attributes => {
   const user = createUser(userInfo);
 
   const createdUser = await strapi.query('admin::user').create({ data: user, populate: ['roles'] });
-  //[PTK] remove useless code
-  /*getService('metrics').sendDidInviteUser();*/
+  
+  // [PK] removed telemetry
 
   return createdUser;
 };
