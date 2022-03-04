@@ -19,8 +19,8 @@ import PrivateRoute from '../../components/PrivateRoute';
 import { createRoute, makeUniqueRoutes } from '../../utils';
 import AuthPage from '../AuthPage';
 import NotFoundPage from '../NotFoundPage';
-// [PTK] remove useless code
-/* import { getUID } from './utils'; */
+// [PTK] removed telemetry
+import UseCasePage from '../UseCasePage';
 import routes from './utils/routes';
 
 const AuthenticatedApp = lazy(() =>
@@ -69,26 +69,7 @@ function App() {
           data: { hasAdmin, uuid },
         } = await request('/admin/init', { method: 'GET' });
 
-        // [PTK] remove useless code
-        /* if (uuid) {
-          try {
-            const deviceId = await getUID();
-
-            fetch('https://analytics.strapi.io/track', {
-              method: 'POST',
-              body: JSON.stringify({
-                event: 'didInitializeAdministration',
-                uuid,
-                deviceId,
-              }),
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-          } catch (e) {
-            // Silent.
-          }
-        } */
+        // [PK] removed telemetry
 
         setState({ isLoading: false, hasAdmin, uuid });
       } catch (err) {
@@ -121,6 +102,7 @@ function App() {
             )}
             exact
           />
+          <PrivateRoute path="/usecase" component={UseCasePage} />
           <PrivateRoute path="/" component={AuthenticatedApp} />
           <Route path="" component={NotFoundPage} />
         </Switch>

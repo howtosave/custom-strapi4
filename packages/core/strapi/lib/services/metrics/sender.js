@@ -4,10 +4,10 @@
 /*const os = require('os');
 const _ = require('lodash');
 const isDocker = require('is-docker');
-const { machineIdSync } = require('node-machine-id');
 const fetch = require('node-fetch');
 const ciEnv = require('ci-info');
 const ee = require('../../utils/ee');
+const machineID = require('../../utils/machine-id');
 const stringifyDeep = require('./stringify-deep');
 
 const defaultQueryOpts = {
@@ -36,7 +36,7 @@ const ANALYTICS_URI = 'https://analytics.strapi.io';
 //[PTK] remove useless code
 /*module.exports = strapi => {
   const { uuid } = strapi.config;
-  const deviceId = machineIdSync();
+  const deviceId = machineID();
   const isEE = strapi.EE === true && ee.isEE === true;
 
   const anonymous_metadata = {

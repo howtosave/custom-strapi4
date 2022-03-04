@@ -190,19 +190,8 @@ class Strapi {
 
     delete global.strapi;
   }
-  //[PTK] remove useless code
-  /*sendStartupTelemetry() {
-    // Get database clients
-    const databaseClients = _.map(this.config.get('connections'), _.property('settings.client'));
 
-    // Emit started event.
-    // do not await to avoid slower startup
-    this.telemetry.send('didStartServer', {
-      database: databaseClients,
-      plugins: this.config.installedPlugins,
-      providers: this.config.installedProviders,
-    });
-  }*/
+  //[PTK] removed telemetry
 
   async openAdmin({ isInitialized }) {
     const shouldOpenAdmin =
