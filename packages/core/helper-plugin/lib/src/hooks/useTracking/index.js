@@ -1,28 +1,6 @@
-import { /* useContext, */ useRef } from 'react';
-// [PK] useless code
-/* import axios from 'axios';
-import TrackingContext from '../../contexts/TrackingContext'; */
+// [PK] removed telemetry
 
 const useTracking = () => {
-  const trackRef = useRef();
-  // [PK] useless code
-  trackRef.current = () => {};
-  /* const uuid = useContext(TrackingContext);
-
-  trackRef.current = (event, properties) => {
-    if (uuid) {
-      try {
-        axios.post('https://analytics.strapi.io/track', {
-          event,
-          properties: { ...properties, projectType: strapi.projectType },
-          uuid,
-        });
-      } catch (err) {
-        // Silent
-      }
-    }
-  }; */
-
-  return { trackUsage: trackRef.current };
+  return { trackUsage: () => {} };
 };
 export default useTracking;
