@@ -16,10 +16,7 @@ import { Grid, GridItem } from '@strapi/design-system/Grid';
 import Logo from '../../assets/images/homepage-logo.png';
 import { useModels } from '../../hooks';
 import isGuidedTourCompleted from '../../components/GuidedTour/utils/isGuidedTourCompleted';
-import GuidedTourHomepage from '../../components/GuidedTour/Homepage';
-import SocialLinks from './SocialLinks';
 import HomeHeader from './HomeHeader';
-import ContentBlocks from './ContentBlocks';
 
 const LogoContainer = styled(Box)`
   position: absolute;
@@ -73,14 +70,6 @@ const HomePage = () => {
                 onCreateCT={handleClick}
                 hasCreatedContentType={hasAlreadyCreatedContentTypes}
               />
-            </GridItem>
-          </Grid>
-          <Grid gap={6}>
-            <GridItem col={8} s={12}>
-              {showGuidedTour ? <GuidedTourHomepage /> : <ContentBlocks />}
-            </GridItem>
-            <GridItem col={4} s={12}>
-              <SocialLinks />
             </GridItem>
           </Grid>
         </Box>
