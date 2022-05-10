@@ -82,7 +82,7 @@ const LeftMenu = ({ generalSectionLinks, pluginsSectionLinks }) => {
 
   const menuTitle = formatMessage({
     id: 'app.components.LeftMenu.navbrand.title',
-    defaultMessage: 'Strapi Dashboard',
+    defaultMessage: 'Dashboard',
   });
 
   return (

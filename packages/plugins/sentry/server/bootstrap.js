@@ -1,8 +1,6 @@
 'use strict';
 
-const initSentryMiddleware = require('./middlewares/sentry');
+// [PK] removed telemetry
 
 module.exports = async ({ strapi }) => {
-  // Initialize the Sentry service exposed by this plugin
-  initSentryMiddleware({ strapi });
 };
