@@ -38,7 +38,7 @@ module.exports = async function({ build, watchAdmin, polling, browser }) {
 
       if (watchAdmin) {
         try {
-          execa('npm', ['run', '-s', 'strapi', 'watch-admin', '--', '--browser', browser], {
+          execa('yarn', ['strapi', 'watch-admin', '--', '--browser', browser], {
             stdio: 'inherit',
           });
         } catch (err) {
