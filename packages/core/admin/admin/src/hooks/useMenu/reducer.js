@@ -7,6 +7,7 @@ import adminPermissions from '../../permissions';
 
 const initialState = {
   generalSectionLinks: [
+    //-- [PK] minimize admin panel
     {
       icon: Puzzle,
       intlLabel: {
