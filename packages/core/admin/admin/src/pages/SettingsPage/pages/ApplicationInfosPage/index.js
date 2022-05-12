@@ -15,7 +15,8 @@ const ApplicationInfosPage = () => {
   const { formatMessage } = useIntl();
   useFocusWhenNavigate();
   const appInfos = useAppInfos();
-  const { shouldUpdateStrapi, latestStrapiReleaseTag, strapiVersion } = appInfos;
+  // [PK] change content
+  const { appName, appVersion, nodeVersion, strapiVersion } = appInfos;
 
   const currentPlan = appInfos.communityEdition
     ? 'app.components.UpgradePlanModal.text-ce'
@@ -50,68 +51,14 @@ const ApplicationInfosPage = () => {
                 })}
               </Typography>
 
-              <Grid paddingTop={1}>
-                <GridItem col={6} s={12}>
-                  <Typography variant="sigma" textColor="neutral600">
-                    {formatMessage({
-                      id: 'Settings.application.strapiVersion',
-                      defaultMessage: 'strapi version',
-                    })}
-                  </Typography>
-                  <Typography as="p">v{strapiVersion}</Typography>
-                  <Link
-                    href={
-                      appInfos.communityEdition
-                        ? 'https://discord.strapi.io'
-                        : 'https://support.strapi.io/support/home'
-                    }
-                    endIcon={<ExternalLink />}
-                  >
-                    {formatMessage({
-                      id: 'Settings.application.get-help',
-                      defaultMessage: 'Get help',
-                    })}
-                  </Link>
-                </GridItem>
-                <GridItem col={6} s={12}>
-                  <Typography variant="sigma" textColor="neutral600">
-                    {formatMessage({
-                      id: 'Settings.application.edition-title',
-                      defaultMessage: 'current plan',
-                    })}
-                  </Typography>
-                  <Typography as="p">
-                    {formatMessage({
-                      id: currentPlan,
-                      defaultMessage: `${
-                        appInfos.communityEdition ? 'Community Edition' : 'Enterprise Edition'
-                      }`,
-                    })}
-                  </Typography>
-                </GridItem>
-              </Grid>
+              {/* [PK] change content */}
 
               <Grid paddingTop={1}>
                 <GridItem col={6} s={12}>
-                  {shouldUpdateStrapi && (
-                    <Link
-                      href={`https://github.com/strapi/strapi/releases/tag/${latestStrapiReleaseTag}`}
-                      endIcon={<ExternalLink />}
-                    >
-                      {formatMessage({
-                        id: 'Settings.application.link-upgrade',
-                        defaultMessage: 'Upgrade your admin panel',
-                      })}
-                    </Link>
-                  )}
-                </GridItem>
-                <GridItem col={6} s={12}>
-                  <Link href="https://strapi.io/pricing-self-hosted" endIcon={<ExternalLink />}>
-                    {formatMessage({
-                      id: 'Settings.application.link-pricing',
-                      defaultMessage: 'See all pricing plans',
-                    })}
-                  </Link>
+                  <Typography variant="sigma" textColor="neutral600">
+                    Server Version
+                  </Typography>
+                  <Typography as="p">v{appVersion}</Typography>
                 </GridItem>
               </Grid>
 
@@ -122,7 +69,7 @@ const ApplicationInfosPage = () => {
                     defaultMessage: 'node version',
                   })}
                 </Typography>
-                <Typography as="p">{appInfos.nodeVersion}</Typography>
+                <Typography as="p">{nodeVersion}/{strapiVersion}</Typography>
               </Box>
             </Stack>
           </Box>
