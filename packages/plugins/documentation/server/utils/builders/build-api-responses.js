@@ -39,17 +39,36 @@ const getMeta = isListOfEntities => {
  * @returns The Swagger responses
  */
 module.exports = (attributes, route, isListOfEntities = false) => {
-  let schema;
+  let content;
   if (route.method === 'DELETE') {
-    schema = {
-      type: 'integer',
-      format: 'int64',
+    content = {
+      'text/plain': {
+        schema: {
+          type: 'integer',
+          format: 'int64',
+        }
+      }
     };
-  } else {
-    schema = {
+  } 
+  else if (route.method === 'GET' && route.path.endsWith('/count')) {
+    content = {
+      'text/plain': {
+        schema: {
+          type: 'integer',
+          format: 'int64',
+        }
+      }
+    };
+  }
+  else {
+    content = {
       properties: {
-        data: getSchemaData(isListOfEntities, cleanSchemaAttributes(attributes)),
-        meta: getMeta(isListOfEntities),
+        'application/json': {
+          schema: {
+            data: getSchemaData(isListOfEntities, cleanSchemaAttributes(attributes)),
+            meta: getMeta(isListOfEntities),
+          },
+        },
       },
     };
   }
@@ -58,11 +77,7 @@ module.exports = (attributes, route, isListOfEntities = false) => {
     responses: {
       '200': {
         description: 'OK',
-        content: {
-          'application/json': {
-            schema,
-          },
-        },
+        content,
       },
       '400': {
         description: 'Bad Request',
