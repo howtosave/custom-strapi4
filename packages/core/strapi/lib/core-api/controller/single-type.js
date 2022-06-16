@@ -27,6 +27,16 @@ const createSingleTypeController = ({ contentType }) => {
     },
 
     /**
+     * Retrieve records count.
+     *
+     * @return {number}
+     */
+     async count(ctx) {
+      const { query } = ctx;
+      return strapi.entityService.count(uid, query);
+    },
+
+    /**
      * create or update single type content.
      *
      * @return {Object}

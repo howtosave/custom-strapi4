@@ -18,6 +18,12 @@ const getSingleTypeRoutes = ({ uid, info }) => {
       handler: `${uid}.find`,
       config: {},
     },
+    count: {
+      method: 'GET',
+      path: `/${info.singularName}/count`,
+      handler: `${uid}.count`,
+      config: {},
+    },
     update: {
       method: 'PUT',
       path: `/${info.singularName}`,
@@ -39,6 +45,12 @@ const getCollectionTypeRoutes = ({ uid, info }) => {
       method: 'GET',
       path: `/${info.pluralName}`,
       handler: `${uid}.find`,
+      config: {},
+    },
+    count: {
+      method: 'GET',
+      path: `/${info.pluralName}/count`,
+      handler: `${uid}.count`,
       config: {},
     },
     findOne: {
