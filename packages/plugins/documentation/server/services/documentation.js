@@ -128,16 +128,26 @@ module.exports = ({ strapi }) => {
         const apiName = api.name;
         const apiDirPath = path.join(this.getApiDocumentationPath(api), version);
 
-        const apiDocPath = path.join(apiDirPath, `${apiName}.json`);
         const apiPathsObject = builApiEndpointPath(api);
 
         if (!apiPathsObject) {
           continue;
         }
 
+        const apiDocPath = path.join(apiDirPath, `${apiName}.json`);
         await fs.ensureFile(apiDocPath);
         await fs.writeJson(apiDocPath, apiPathsObject, { spaces: 2 });
 
+        // [PK]
+        // apply overrides
+        const overridedApiDocPath = path.join(apiDirPath, 'overrides', `${apiName}.json`);
+        if (fs.existsSync(overridedApiDocPath)) {
+          const overridedPaths = JSON.parse(fs.readFileSync(overridedApiDocPath, 'utf8')).paths;
+          for (const pathName of Object.keys(overridedPaths)) {
+            console.log('>>>>>>>>>>> REPLACE API PATH:', pathName);
+            apiPathsObject.paths[pathName] = overridedPaths[pathName];
+          }
+        }
         paths = { ...paths, ...apiPathsObject.paths };
       }
 
