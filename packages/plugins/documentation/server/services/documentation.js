@@ -160,13 +160,13 @@ module.exports = ({ strapi }) => {
         // apply overrides
         const overridedApiDocPath = path.join(apiDirPath, 'overrides', `${apiName}.json`);
         if (fs.existsSync(overridedApiDocPath)) {
-          const overridedPaths = JSON.parse(fs.readFileSync(overridedApiDocPath, 'utf8')).paths;
+          const overridedPaths = JSON.parse(fs.readFileSync(overridedApiDocPath, 'utf8'));
           for (const pathName of Object.keys(overridedPaths)) {
             console.log('>>>>>>>>>>> REPLACE API PATH:', pathName);
-            apiPathsObject.paths[pathName] = overridedPaths[pathName];
+            apiPath[pathName] = overridedPaths[pathName];
           }
         }
-        paths = { ...paths, ...apiPathsObject.paths };
+        paths = { ...paths, ...apiPath };
       }
 
       const fullDocJsonPath = path.join(

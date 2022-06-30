@@ -197,7 +197,7 @@ class Strapi {
     delete global.strapi;
   }
 
-  //[PK] removed telemetry
+  // [PK] removed telemetry
 
   async openAdmin({ isInitialized }) {
     const shouldOpenAdmin =
@@ -207,9 +207,9 @@ class Strapi {
     if (shouldOpenAdmin && !isInitialized) {
       try {
         await utils.openBrowser(this.config);
-        this.telemetry.send('didOpenTab');
+        // [PK] removed telemetry
       } catch (e) {
-        this.telemetry.send('didNotOpenTab');
+        // [PK] removed telemetry
       }
     }
   }
