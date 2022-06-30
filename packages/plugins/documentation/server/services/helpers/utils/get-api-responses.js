@@ -24,6 +24,12 @@ const getApiResponse = ({
         format: 'int64',
       };
     }
+    else if (route.method === 'GET' && route.path.endsWith('/count')) {
+      return {
+        type: 'integer',
+        format: 'int64',
+      };
+    }
 
     if (isLocalizationPath) {
       return { $ref: `#/components/schemas/${pascalCase(uniqueName)}LocalizationResponse` };

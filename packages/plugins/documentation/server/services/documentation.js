@@ -160,7 +160,10 @@ module.exports = ({ strapi }) => {
         // apply overrides
         const overridedApiDocPath = path.join(apiDirPath, 'overrides', `${apiName}.json`);
         if (fs.existsSync(overridedApiDocPath)) {
-          const overridedPaths = JSON.parse(fs.readFileSync(overridedApiDocPath, 'utf8'));
+          let overridedPaths = JSON.parse(fs.readFileSync(overridedApiDocPath, 'utf8'));
+          if (overridedApiDocPath.includes('/extensions/users-permissions/')) {
+            overridedPaths = overridedPaths.paths;
+          }
           for (const pathName of Object.keys(overridedPaths)) {
             console.log('>>>>>>>>>>> REPLACE API PATH:', pathName);
             apiPath[pathName] = overridedPaths[pathName];
@@ -193,7 +196,7 @@ module.exports = ({ strapi }) => {
       const customConfig = await this.getCustomConfig();
       const config = _.merge(defaultConfig, customConfig);
 
-      const finalDoc = { ...config, paths };
+      const finalDoc = { ...config, paths: {} };
 
       registeredDocs.forEach((doc) => {
         // Add tags
@@ -201,7 +204,7 @@ module.exports = ({ strapi }) => {
         finalDoc.tags.push(...(doc.tags || []));
 
         // Add Paths
-        _.assign(finalDoc.paths, doc.paths);
+        _.defaults(finalDoc.paths, paths, doc.paths);
 
         // Add components
         _.forEach(doc.components || {}, (val, key) => {
