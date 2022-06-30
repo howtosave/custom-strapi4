@@ -89,6 +89,8 @@ module.exports = {
     const nodeVersion = process.version;
     const communityEdition = !strapi.EE;
     const useYarn = await exists(path.join(process.cwd(), 'yarn.lock'));
+    const appVersion = strapi.config.get('info.version', null);
+    const appName = strapi.config.get('info.name', null);
 
     return {
       data: {
@@ -99,6 +101,8 @@ module.exports = {
         nodeVersion,
         communityEdition,
         useYarn,
+        appVersion,
+        appName,
       },
     };
   },

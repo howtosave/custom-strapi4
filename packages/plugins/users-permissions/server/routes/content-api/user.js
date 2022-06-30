@@ -26,6 +26,14 @@ module.exports = [
     },
   },
   {
+    method: 'PUT',
+    path: '/users/me',
+    handler: 'user.me',
+    config: {
+      prefix: '',
+    },
+  },
+  {
     method: 'GET',
     path: '/users/:id',
     handler: 'user.findOne',

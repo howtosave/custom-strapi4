@@ -237,7 +237,7 @@
   "app.components.LeftMenu.collapse": "Collapse the navbar",
   "app.components.LeftMenu.expand": "Expand the navbar",
   "app.components.LeftMenu.logout": "로그아웃",
-  "app.components.LeftMenu.navbrand.title": "Strapi 대시보드",
+  "app.components.LeftMenu.navbrand.title": "대시보드",
   "app.components.LeftMenu.navbrand.workplace": "작업 공간",
   "app.components.LeftMenuFooter.help": "도움말",
   "app.components.LeftMenuFooter.poweredBy": "Powered by ",

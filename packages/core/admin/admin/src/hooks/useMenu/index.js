@@ -4,6 +4,14 @@ import getPluginSectionLinks from './utils/getPluginSectionLinks';
 import getGeneralLinks from './utils/getGeneralLinks';
 import reducer, { initialState } from './reducer';
 
+// [PK] minimize admin panel
+const _hiddenPlugins = [
+  // 'content-type-builder', // link.intlLabel.defaultMessage = 'Content Type Builder'
+  // 'upload',            // link.intlLabel.defaultMessage = 'Media Library'
+  // 'documentation',     // link.intlLabel.defaultMessage = 'Documentation'
+];
+const _filterHiddenPluginLinks = (links) => links.filter((e) => !_hiddenPlugins.find((ee) => e.to === `/plugins/${ee}`));
+
 const useMenu = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { allPermissions } = useRBACProvider();
@@ -16,7 +24,7 @@ const useMenu = () => {
   // Once in the app lifecycle the menu should not be added into any dependencies array
 
   const resolvePermissions = async (permissions = allPermissions) => {
-    const pluginsSectionLinks = menu;
+    const pluginsSectionLinks = _filterHiddenPluginLinks(menu);
 
     const authorizedPluginSectionLinks = await getPluginSectionLinks(
       permissions,

@@ -20,8 +20,8 @@ import PrivateRoute from '../../components/PrivateRoute';
 import { createRoute, makeUniqueRoutes } from '../../utils';
 import AuthPage from '../AuthPage';
 import NotFoundPage from '../NotFoundPage';
+// [PK] removed telemetry
 import UseCasePage from '../UseCasePage';
-import { getUID } from './utils';
 import routes from './utils/routes';
 import { useConfigurations } from '../../hooks';
 
@@ -72,27 +72,7 @@ function App() {
           data: { hasAdmin, uuid, menuLogo },
         } = await request('/admin/init', { method: 'GET' });
 
-        updateProjectSettings({ menuLogo: prefixFileUrlWithBackendUrl(menuLogo) });
-
-        if (uuid) {
-          try {
-            const deviceId = await getUID();
-
-            fetch('https://analytics.strapi.io/track', {
-              method: 'POST',
-              body: JSON.stringify({
-                event: 'didInitializeAdministration',
-                uuid,
-                deviceId,
-              }),
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-          } catch (e) {
-            // Silent.
-          }
-        }
+        // [PK] removed telemetry
 
         setState({ isLoading: false, hasAdmin, uuid });
       } catch (err) {

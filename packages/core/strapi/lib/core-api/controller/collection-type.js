@@ -28,6 +28,16 @@ const createCollectionTypeController = ({ contentType }) => {
     },
 
     /**
+     * Retrieve records count.
+     *
+     * @return {number}
+     */
+     async count(ctx) {
+      const { query } = ctx;
+      return strapi.entityService.count(uid, query);
+    },
+
+    /**
      * Retrieve a record.
      *
      * @return {Object}

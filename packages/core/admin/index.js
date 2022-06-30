@@ -291,9 +291,11 @@ async function watchFiles(dir) {
   const cacheDir = path.join(dir, '.cache');
   const appExtensionFile = path.join(dir, 'src', 'admin', 'app.js');
   const extensionsPath = path.join(dir, 'src', 'admin', 'extensions');
+  // [PK] watch strapi admin dirs
+  const strapiAdmin = path.join(dir, 'strapi', 'packages', 'core', 'admin', 'admin', 'src');
 
   // Only watch the admin/app.js file and the files that are in the ./admin/extensions/folder
-  const filesToWatch = [appExtensionFile, extensionsPath];
+  const filesToWatch = [appExtensionFile, extensionsPath, strapiAdmin];
 
   const watcher = chokidar.watch(filesToWatch, {
     ignoreInitial: true,
@@ -302,12 +304,14 @@ async function watchFiles(dir) {
 
   watcher.on('all', async (event, filePath) => {
     const isAppFile = filePath.includes(appExtensionFile);
-
+    const isExtensionsFile = !isAppFile && filePath.includes(extensionsPath);
     // The app.js file needs to be copied in the .cache/admin/src/app.js and the other ones needs to
     // be copied in the .cache/admin/src/extensions folder
     const targetPath = isAppFile
       ? path.join(path.normalize(filePath.split(appExtensionFile)[1]), 'app.js')
-      : path.join('extensions', path.normalize(filePath.split(extensionsPath)[1]));
+      : isExtensionsFile 
+      ? path.join('extensions', path.normalize(filePath.split(extensionsPath)[1]))
+      : path.join(path.normalize(filePath.split(strapiAdmin)[1]));
 
     const destFolder = path.join(cacheDir, 'admin', 'src');
 

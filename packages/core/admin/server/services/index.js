@@ -6,7 +6,7 @@ module.exports = {
   role: require('./role'),
   permission: require('./permission'),
   passport: require('./passport'),
-  metrics: require('./metrics'),
+  // [PK] removed telemetry
   'content-type': require('./content-type'),
   constants: require('./constants'),
   condition: require('./condition'),

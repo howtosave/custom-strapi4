@@ -3,7 +3,8 @@ import * as configuration from '../services/configuration';
 import * as contentTypes from '../services/content-types';
 import * as dataMapper from '../services/data-mapper';
 import * as entityManager from '../services/entity-manager';
-import * as metris from '../services/metris';
+// [PK] removed telemetry
+//import * as metris from '../services/metris';
 import * as permissionChecker from '../services/permission-checker';
 import * as permission from '../services/permission';
 import * as uid from '../services/uid';
@@ -15,7 +16,8 @@ type S = {
   ['permission-checker']: typeof permissionChecker;
   components: typeof components;
   configuration: typeof configuration;
-  metris: typeof metris;
+  // [PK] removed telemetry
+  //metris: typeof metris;
   permission: typeof permission;
   uid: typeof uid;
 };

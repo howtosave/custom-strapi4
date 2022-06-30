@@ -39,7 +39,7 @@ module.exports = async ({ optimization, forceBuild = true }) => {
       dir,
       plugins,
       // front end build env is always production for now
-      env: 'production',
+      env: optimization ? 'production' : 'development',
       optimize: optimization,
       options: {
         backend: serverUrl,
