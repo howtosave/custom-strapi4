@@ -261,7 +261,8 @@ const createQueryBuilder = (uid, db) => {
       }
 
       const aliasedTableName = this.mustUseAlias() ? `${tableName} as ${this.alias}` : tableName;
-
+      // [PK] See https://github.com/strapi/strapi/issues/7631#issuecomment-1163888078
+      const tableNameToUse = this.mustUseAlias() ? `${this.alias}` : tableName;
       const qb = db.getConnection(aliasedTableName);
 
       if (this.shouldUseSubQuery()) {
@@ -281,7 +282,13 @@ const createQueryBuilder = (uid, db) => {
           break;
         }
         case 'count': {
-          qb.count({ count: state.count });
+          // [PK] See https://github.com/strapi/strapi/issues/7631#issuecomment-1163888078
+          // qb.count({ count: state.count });
+          if (_.has('id', meta.attributes)) {
+            qb.countDistinct({ count: `${tableNameToUse}.id` });
+          } else {
+            qb.count({ count: state.count });
+          }
           break;
         }
         case 'insert': {
