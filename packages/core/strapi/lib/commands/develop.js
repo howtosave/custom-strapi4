@@ -25,6 +25,16 @@ module.exports = async ({ build, watchAdmin, polling, browser }) => {
   const outDir = await tsUtils.resolveOutDir(appDir);
   const distDir = isTSProject ? outDir : appDir;
 
+  if (watchAdmin) {
+    try {
+      execa('yarn', ['strapi', 'watch-admin', '--', '--browser', browser], {
+        stdio: 'inherit',
+      });
+    } catch (err) {
+      process.exit(1);
+    }
+  }
+
   try {
     if (cluster.isMaster || cluster.isPrimary) {
       return primaryProcess({

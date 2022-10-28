@@ -78,19 +78,7 @@ const UseCasePage = () => {
 
   const handleSubmit = (skipPersona) => {
     try {
-      axios({
-        method: 'POST',
-        url: 'https://analytics.strapi.io/register',
-        data: {
-          email,
-          username: firstname,
-          firstAdmin: Boolean(!hasAdmin),
-          persona: {
-            role: skipPersona ? undefined : role,
-            otherRole: skipPersona ? undefined : otherRole,
-          },
-        },
-      });
+      // [PK] remove useless codes
 
       toggleNotification({
         type: 'success',

@@ -3,7 +3,7 @@
 const components = require('./components');
 const contentTypes = require('./content-types');
 const dataMapper = require('./data-mapper');
-const metrics = require('./metrics');
+// [PK] removed telemetry
 const permissionChecker = require('./permission-checker');
 const permission = require('./permission');
 const uid = require('./uid');
@@ -13,7 +13,7 @@ module.exports = {
   components,
   'content-types': contentTypes,
   'data-mapper': dataMapper,
-  metrics,
+  // [PK] removed telemetry
   'permission-checker': permissionChecker,
   permission,
   uid,

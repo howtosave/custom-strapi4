@@ -77,8 +77,7 @@ module.exports = {
     const { body } = ctx.request;
 
     const contentTypeService = getService('content-types');
-    const metricsService = getService('metrics');
-
+    // [PK] remove useless codes
     const contentType = await contentTypeService.findContentType(uid);
 
     if (!contentType) {
@@ -105,7 +104,7 @@ module.exports = {
 
     const newConfiguration = await contentTypeService.updateConfiguration(contentType, input);
 
-    await metricsService.sendDidConfigureListView(contentType, newConfiguration);
+    // [PK] removed telemetry
 
     const confWithUpdatedMetadata = {
       ...newConfiguration,

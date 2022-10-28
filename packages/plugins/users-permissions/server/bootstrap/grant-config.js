@@ -104,7 +104,7 @@ module.exports = (baseURL) => ({
   },
   auth0: {
     enabled: false,
-    icon: '',
+    icon: 'user-alt',
     key: '',
     secret: '',
     subdomain: 'my-tenant.eu',

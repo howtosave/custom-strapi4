@@ -40,6 +40,7 @@ export default {
           },
           permissions: pluginPermissions.accessRoles,
         },
+        // [PK] minimize admin panel
         {
           intlLabel: {
             id: getTrad('HeaderNav.link.providers'),

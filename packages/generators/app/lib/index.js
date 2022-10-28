@@ -4,7 +4,9 @@ const { join, resolve, basename } = require('path');
 const os = require('os');
 const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
-const sentry = require('@sentry/node');
+// [PK] removed telemetry
+// FIXME
+/* eslint-disable import/extensions */
 const hasYarn = require('./utils/has-yarn');
 const checkRequirements = require('./utils/check-requirements');
 const { trackError, captureException } = require('./utils/usage');
@@ -12,10 +14,6 @@ const parseDatabaseArguments = require('./utils/parse-db-arguments');
 const generateNew = require('./generate-new');
 const checkInstallPath = require('./utils/check-install-path');
 const machineID = require('./utils/machine-id');
-
-sentry.init({
-  dsn: 'https://841d2b2c9b4d4b43a4cde92794cb705a@sentry.io/1762059',
-});
 
 const generateNewApp = (projectDirectory, cliArguments) => {
   checkRequirements();
@@ -55,22 +53,6 @@ const generateNewApp = (projectDirectory, cliArguments) => {
     additionalsDependencies: {},
     useTypescript: Boolean(cliArguments.typescript),
   };
-
-  sentry.configureScope(function scope(sentryScope) {
-    const tags = {
-      os: os.type(),
-      osPlatform: os.platform(),
-      osArch: os.arch(),
-      osRelease: os.release(),
-      version: scope.strapiVersion,
-      nodeVersion: process.versions.node,
-      docker: scope.docker,
-    };
-
-    Object.keys(tags).forEach((tag) => {
-      sentryScope.setTag(tag, tags[tag]);
-    });
-  });
 
   parseDatabaseArguments({ scope, args: cliArguments });
   initCancelCatcher(scope);

@@ -20,12 +20,9 @@ const { createCoreStore, coreStoreModel } = require('./services/core-store');
 const createEntityService = require('./services/entity-service');
 const createCronService = require('./services/cron');
 const entityValidator = require('./services/entity-validator');
-const createTelemetry = require('./services/metrics');
-const requestContext = require('./services/request-context');
 const createAuth = require('./services/auth');
-const createCustomFields = require('./services/custom-fields');
-const createContentAPI = require('./services/content-api');
-const createUpdateNotifier = require('./utils/update-notifier');
+// [PK] removed telemetry
+// [PK] removed update-notifier
 const createStartupLogger = require('./utils/startup-logger');
 const { LIFECYCLES } = require('./utils/lifecycles');
 const ee = require('./utils/ee');
@@ -114,12 +111,9 @@ class Strapi {
     this.startupLogger = createStartupLogger(this);
     this.log = createLogger(this.config.get('logger', {}));
     this.cron = createCronService();
-    this.telemetry = createTelemetry(this);
-    this.requestContext = requestContext;
-
-    this.customFields = createCustomFields(this);
-
-    createUpdateNotifier(this).notify();
+    
+    // [PK] removed telemetry
+    // [PK] removed update-notifier
   }
 
   get config() {
@@ -231,7 +225,8 @@ class Strapi {
       await this.db.destroy();
     }
 
-    this.telemetry.destroy();
+    // [PK] removed telemetry
+
     this.cron.destroy();
 
     process.removeAllListeners();
@@ -239,16 +234,7 @@ class Strapi {
     delete global.strapi;
   }
 
-  sendStartupTelemetry() {
-    // Emit started event.
-    // do not await to avoid slower startup
-    this.telemetry.send('didStartServer', {
-      database: strapi.config.get('database.connection.client'),
-      plugins: Object.keys(strapi.plugins),
-      // TODO: to add back
-      // providers: this.config.installedProviders,
-    });
-  }
+  //[PK] removed telemetry
 
   async openAdmin({ isInitialized }) {
     const shouldOpenAdmin =
@@ -270,7 +256,8 @@ class Strapi {
 
     this.startupLogger.logStartupMessage({ isInitialized });
 
-    this.sendStartupTelemetry();
+    //[PK] remove useless code
+    /*this.sendStartupTelemetry();*/
     this.openAdmin({ isInitialized });
   }
 
@@ -388,7 +375,7 @@ class Strapi {
 
     this.registerInternalHooks();
 
-    this.telemetry.register();
+    // [PK] removed telemetry
 
     await this.runLifecyclesFunctions(LIFECYCLES.REGISTER);
     // NOTE: Swap type customField for underlying data type
@@ -426,7 +413,7 @@ class Strapi {
       this.cron.add(cronTasks);
     }
 
-    this.telemetry.bootstrap();
+    // [PK] removed telemetry
 
     let oldContentTypes;
     if (await this.db.getSchemaConnection().hasTable(coreStoreModel.collectionName)) {

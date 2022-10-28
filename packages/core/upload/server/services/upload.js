@@ -38,15 +38,7 @@ const generateFileName = (name) => {
   return `${baseName}_${randomSuffix()}`;
 };
 
-const sendMediaMetrics = (data) => {
-  if (_.has(data, 'caption') && !_.isEmpty(data.caption)) {
-    strapi.telemetry.send('didSaveMediaWithCaption');
-  }
-
-  if (_.has(data, 'alternativeText') && !_.isEmpty(data.alternativeText)) {
-    strapi.telemetry.send('didSaveMediaWithAlternativeText');
-  }
-};
+// [PK] removed telemetry
 
 const createAndAssignTmpWorkingDirectoryToFiles = async (files) => {
   const tmpWorkingDirectory = await fse.mkdtemp(path.join(os.tmpdir(), 'strapi-upload-'));
@@ -340,7 +332,8 @@ module.exports = ({ strapi }) => ({
     if (user) {
       fileValues[UPDATED_BY_ATTRIBUTE] = user.id;
     }
-    sendMediaMetrics(fileValues);
+
+    // [PK] removed telemetry
 
     const res = await strapi.entityService.update(FILE_MODEL_UID, id, { data: fileValues });
 
@@ -355,7 +348,8 @@ module.exports = ({ strapi }) => ({
       fileValues[UPDATED_BY_ATTRIBUTE] = user.id;
       fileValues[CREATED_BY_ATTRIBUTE] = user.id;
     }
-    sendMediaMetrics(fileValues);
+
+    // [PK] removed telemetry
 
     const res = await strapi.query(FILE_MODEL_UID).create({ data: fileValues });
 
@@ -440,11 +434,8 @@ module.exports = ({ strapi }) => ({
   },
 
   setSettings(value) {
-    if (value.responsiveDimensions === true) {
-      strapi.telemetry.send('didEnableResponsiveDimensions');
-    } else {
-      strapi.telemetry.send('didDisableResponsiveDimensions');
-    }
+
+    // [PK] removed telemetry
 
     return strapi.store({ type: 'plugin', name: 'upload', key: 'settings' }).set({ value });
   },

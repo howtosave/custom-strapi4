@@ -16,10 +16,12 @@ const init = (initialState, { settings, shouldUpdateStrapi }) => {
   const otherSections = Object.values(omit(settings, 'global'));
 
   const menu = [
+    // [PK] minimize admin panel -- remove 'Global Settings'
     {
       ...settings.global,
       links: sortedGlobalLinks,
     },
+    //-- [PK] minimize admin panel -- remove 'Admin Panel'
     {
       id: 'permissions',
       intlLabel: { id: 'Settings.permissions', defaultMessage: 'Administration Panel' },

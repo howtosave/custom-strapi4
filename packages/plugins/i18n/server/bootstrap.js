@@ -30,7 +30,7 @@ const registerModelsHooks = () => {
 };
 
 module.exports = async ({ strapi }) => {
-  const { sendDidInitializeEvent } = getService('metrics');
+  // [PK] removed telemetry
   const { decorator } = getService('entity-service-decorator');
   const { initDefaultLocale } = getService('locales');
   const { sectionsBuilder, actions, engine } = getService('permissions');
@@ -55,5 +55,5 @@ module.exports = async ({ strapi }) => {
   // Hooks & Models
   registerModelsHooks();
 
-  sendDidInitializeEvent();
+  // [PK] removed telemetry
 };

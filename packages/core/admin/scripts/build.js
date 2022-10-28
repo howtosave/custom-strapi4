@@ -31,13 +31,15 @@ const buildAdmin = async () => {
 
   await createPluginsFile(allPlugins);
 
+  // [PK] add optional build env
+  const buildEnv = process.env.NODE_ENV || 'development'; //'production';
   const args = {
     entry,
     dest,
-    cacheDir: path.join(__dirname, '..'),
-    pluginsPath,
-    env: 'production',
-    optimize: true,
+    cacheDir: path.resolve(__dirname, '..'),
+    pluginsPath: [path.resolve(__dirname, '../../../../packages')],
+    env: buildEnv,
+    optimize: buildEnv === 'production',
     options: {
       backend: 'http://localhost:1337',
       adminPath: '/admin/',
