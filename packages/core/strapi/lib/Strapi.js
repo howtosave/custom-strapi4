@@ -21,6 +21,7 @@ const createEntityService = require('./services/entity-service');
 const createCronService = require('./services/cron');
 const entityValidator = require('./services/entity-validator');
 const createAuth = require('./services/auth');
+const createContentAPI = require('./services/content-api');
 // [PK] removed telemetry
 // [PK] removed update-notifier
 const createStartupLogger = require('./utils/startup-logger');
