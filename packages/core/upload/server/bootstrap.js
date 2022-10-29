@@ -1,6 +1,6 @@
 'use strict';
 
-const { getService } = require('./utils');
+// [PK] removed telemetry
 
 module.exports = async ({ strapi }) => {
   // set plugin store
@@ -21,7 +21,7 @@ module.exports = async ({ strapi }) => {
 
   await registerPermissionActions();
 
-  await getService('metrics').registerCron();
+  // [PK] removed telemetry
 };
 
 const registerPermissionActions = async () => {
