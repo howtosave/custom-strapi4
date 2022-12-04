@@ -3,6 +3,9 @@
 const { strict: assert } = require('assert');
 const jwt = require('jsonwebtoken');
 
+// [PK] dummy email address
+const dummyEmailHost = '@local.host';
+
 const getInitialProviders = ({ purest }) => ({
   async discord({ accessToken }) {
     const discord = purest({ provider: 'discord' });
@@ -131,7 +134,7 @@ const getInitialProviders = ({ purest }) => ({
       .request()
       .then(({ body }) => ({
         username: body.username,
-        email: `${body.username}@strapi.io`, // dummy email as Instagram does not provide user email
+        email: `${body.username}${dummyEmailHost}`, // dummy email as Instagram does not provide user email
       }));
   },
   async vk({ accessToken, query }) {
@@ -216,7 +219,7 @@ const getInitialProviders = ({ purest }) => ({
       .request()
       .then(({ body }) => ({
         username: body.name,
-        email: `${body.name}@strapi.io`, // dummy email as Reddit does not provide user email
+        email: `${body.name}${dummyEmailHost}`, // dummy email as Reddit does not provide user email
       }));
   },
   async auth0({ accessToken, providers }) {
@@ -229,7 +232,7 @@ const getInitialProviders = ({ purest }) => ({
       .request()
       .then(({ body }) => {
         const username = body.username || body.nickname || body.name || body.email.split('@')[0];
-        const email = body.email || `${username.replace(/\s+/g, '.')}@strapi.io`;
+        const email = body.email || `${username.replace(/\s+/g, '.')}${dummyEmailHost}`;
 
         return {
           username,
@@ -264,6 +267,39 @@ const getInitialProviders = ({ purest }) => ({
         };
       });
   },
+
+  // [PK] kakao provider
+  async kakao({ accessToken }) {
+    const kakao = purest({
+      provider: 'kakao',
+      config: {
+        kakao: {
+          default: {
+            origin: 'https://kapi.kakao.com',
+            path: '{path}',
+            headers: {
+              Authorization: 'Bearer {auth}',
+            },
+          },
+        },
+      },
+    });
+
+    return kakao
+      .get('v2/user/me')
+      .auth(accessToken)
+      .request()
+      .then(({ body }) => {
+        const { kakao_account: profile } = body;
+        const username = profile.nickname || (profile.email && profile.email.split('@')[0]) || 'noname';
+        const email = profile.email || `${username}${dummyEmailHost}`;
+
+        return {
+          username,
+          email,
+        };
+      });
+  }
 });
 
 module.exports = () => {

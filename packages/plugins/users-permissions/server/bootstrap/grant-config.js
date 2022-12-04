@@ -104,7 +104,7 @@ module.exports = (baseURL) => ({
   },
   auth0: {
     enabled: false,
-    icon: 'user-alt',
+    icon: 'user',
     key: '',
     secret: '',
     subdomain: 'my-tenant.eu',
@@ -119,5 +119,14 @@ module.exports = (baseURL) => ({
     callback: `${baseURL}/cas/callback`,
     scope: ['openid email'], // scopes should be space delimited
     subdomain: 'my.subdomain.com/cas',
+  },
+  // [PK] kakao provider
+  kakao: {
+    enabled: false,
+    icon: 'tree',
+    key: '',
+    secret: '',
+    callback: `${baseURL}/kakao/callback`,
+    scope: ['profile_nickname', '	profile_image', '	account_email'],
   },
 });
