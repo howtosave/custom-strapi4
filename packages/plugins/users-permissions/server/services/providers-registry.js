@@ -290,13 +290,17 @@ const getInitialProviders = ({ purest }) => ({
       .auth(accessToken)
       .request()
       .then(({ body }) => {
-        const { kakao_account: profile } = body;
-        const username = profile.nickname || (profile.email && profile.email.split('@')[0]) || 'noname';
-        const email = profile.email || `${username}${dummyEmailHost}`;
+        const { kakao_account: account } = body;
+        const username = account.profile.nickname || (account.email && account.email.split('@')[0]) || body.id;
+        const email = account.email || `${body.id}${dummyEmailHost}`;
 
         return {
           username,
           email,
+          providerData: { // provider data
+            id: body.id,
+            ...account,
+          },
         };
       });
   }
