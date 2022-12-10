@@ -1,6 +1,6 @@
 'use strict';
 
-const { green } = require('chalk');
+const { green, yellow } = require('chalk');
 
 const strapiAdmin = require('@strapi/admin');
 const { getConfigUrls } = require('@strapi/utils');
@@ -26,6 +26,8 @@ module.exports = async ({ buildDestDir, forceBuild = true, optimization, srcDir 
   const { serverUrl, adminPath } = getConfigUrls(strapiInstance.config, true);
 
   console.log(`Building your admin UI with ${green(env)} configuration...`);
+  console.log(`  serverUrl: ${yellow(serverUrl)}`);
+  console.log(`  adminPath: ${yellow(adminPath)}`);
 
   // Always remove the .cache and build folders
   await strapiAdmin.clean({ appDir: srcDir, buildDestDir });
