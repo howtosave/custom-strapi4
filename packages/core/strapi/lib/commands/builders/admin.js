@@ -23,10 +23,12 @@ module.exports = async ({ buildDestDir, forceBuild = true, optimization, srcDir 
   const plugins = await getEnabledPlugins(strapiInstance);
 
   const env = strapiInstance.config.get('environment');
-  const { serverUrl, adminPath } = getConfigUrls(strapiInstance.config, true);
+  const { serverUrl, adminPath, adminUrl } = getConfigUrls(strapiInstance.config, true);
 
   console.log(`Building your admin UI with ${green(env)} configuration...`);
+  // [PK] print url on build
   console.log(`  serverUrl: ${yellow(serverUrl)}`);
+  console.log(`  adminUrl: ${yellow(adminUrl)}`);
   console.log(`  adminPath: ${yellow(adminPath)}`);
 
   // Always remove the .cache and build folders

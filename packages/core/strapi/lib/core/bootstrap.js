@@ -24,6 +24,14 @@ module.exports = async function ({ strapi }) {
     strapi.config.serveAdminPanel = false;
   }
 
+  // [PK] print config on startup
+  console.log('>>> Strapi config keys:', Object.keys(strapi.config));
+  console.log('>>>   Server:', strapi.config.server);
+  console.log('>>>   Admin:', strapi.config.admin);
+  console.log('>>>   Api:', strapi.config.api);
+  console.log('>>>   Database:', strapi.config.database);
+  console.log('>>>   Middlewares:', strapi.config.middlewares);
+
   // ensure public repository exists
   if (!(await fse.pathExists(strapi.dirs.static.public))) {
     throw new Error(
