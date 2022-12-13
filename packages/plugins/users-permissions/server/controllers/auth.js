@@ -198,7 +198,13 @@ module.exports = {
       _.get(ctx, 'session.grant.dynamic.callback') ||
       grantConfig[provider].callback;
     grantConfig[provider].redirect_uri = getService('providers').buildRedirectUri(provider);
-
+    
+    // [PK] to fix 'Grant: missing session or misconfigured provider' error
+    // Linux 환경에서 cookie에서 가져오는 provider 값이 설정되지 않는 이슈가 발생함(Mac에서는 정상 동작함)
+    if (!ctx.session.grant || !ctx.session.grant.provider) {
+      if (!ctx.session.grant) ctx.session.grant = { provider };
+      else ctx.session.grant.provider = provider;
+    }
     return grant(grantConfig)(ctx, next);
   },
 
