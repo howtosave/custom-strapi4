@@ -19,6 +19,7 @@ const getInitialProviders = ({ purest }) => ({
         return {
           username,
           email: body.email,
+          providerData: body,
         };
       });
   },
@@ -33,6 +34,7 @@ const getInitialProviders = ({ purest }) => ({
       return {
         username: tokenPayload['cognito:username'],
         email: tokenPayload.email,
+        providerData: {},
       };
     }
   },
@@ -47,6 +49,7 @@ const getInitialProviders = ({ purest }) => ({
       .then(({ body }) => ({
         username: body.name,
         email: body.email,
+        providerData: body,
       }));
   },
   async google({ accessToken }) {
@@ -60,7 +63,8 @@ const getInitialProviders = ({ purest }) => ({
       .then(({ body }) => ({
         username: body.email.split('@')[0],
         email: body.email,
-      }));
+        providerData: body,
+    }));
   },
   async github({ accessToken }) {
     const github = purest({
@@ -79,6 +83,7 @@ const getInitialProviders = ({ purest }) => ({
       return {
         username: userBody.login,
         email: userBody.email,
+        providerData: userBody,
       };
     }
     // Get the email with Github's user/emails API
@@ -89,6 +94,7 @@ const getInitialProviders = ({ purest }) => ({
       email: Array.isArray(emailBody)
         ? emailBody.find((email) => email.primary === true).email
         : null,
+      providerData: emailBody,
     };
   },
   async microsoft({ accessToken }) {
@@ -101,6 +107,7 @@ const getInitialProviders = ({ purest }) => ({
       .then(({ body }) => ({
         username: body.userPrincipalName,
         email: body.userPrincipalName,
+        providerData: body,
       }));
   },
   async twitter({ accessToken, query, providers }) {
@@ -122,6 +129,7 @@ const getInitialProviders = ({ purest }) => ({
       .then(({ body }) => ({
         username: body.screen_name,
         email: body.email,
+        providerData: body,
       }));
   },
   async instagram({ accessToken }) {
@@ -135,6 +143,7 @@ const getInitialProviders = ({ purest }) => ({
       .then(({ body }) => ({
         username: body.username,
         email: `${body.username}${dummyEmailHost}`, // dummy email as Instagram does not provide user email
+        providerData: body,
       }));
   },
   async vk({ accessToken, query }) {
@@ -148,6 +157,7 @@ const getInitialProviders = ({ purest }) => ({
       .then(({ body }) => ({
         username: `${body.response[0].last_name} ${body.response[0].first_name}`,
         email: query.raw.email,
+        providerData: body,
       }));
   },
   async twitch({ accessToken, providers }) {
@@ -174,6 +184,7 @@ const getInitialProviders = ({ purest }) => ({
       .then(({ body }) => ({
         username: body.data[0].login,
         email: body.data[0].email,
+        providerData: body,
       }));
   },
   async linkedin({ accessToken }) {
@@ -193,6 +204,7 @@ const getInitialProviders = ({ purest }) => ({
     return {
       username: localizedFirstName,
       email: email.emailAddress,
+      providerData: body,
     };
   },
   async reddit({ accessToken }) {
@@ -220,6 +232,7 @@ const getInitialProviders = ({ purest }) => ({
       .then(({ body }) => ({
         username: body.name,
         email: `${body.name}${dummyEmailHost}`, // dummy email as Reddit does not provide user email
+        providerData: body,
       }));
   },
   async auth0({ accessToken, providers }) {
@@ -237,6 +250,7 @@ const getInitialProviders = ({ purest }) => ({
         return {
           username,
           email,
+          providerData: body,
         };
       });
   },
@@ -264,6 +278,7 @@ const getInitialProviders = ({ purest }) => ({
         return {
           username,
           email,
+          providerData: body,
         };
       });
   },
@@ -297,10 +312,7 @@ const getInitialProviders = ({ purest }) => ({
         return {
           username,
           email,
-          providerData: { // provider data
-            id: body.id,
-            ...account,
-          },
+          providerData: body,
         };
       });
   }
